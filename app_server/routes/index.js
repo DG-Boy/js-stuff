@@ -1,12 +1,9 @@
 var express = require('express');
+var ctrlMain = require('../controllers/main')
 var router = express.Router();
 
-var homepageController = function (req, res) {
-  res.render('index', { title: 'Loc8r' });
-}
-
 /* GET home page. */
-router.get('/', homepageController);
+router.get('/', ctrlMain.index);
 
 
 module.exports = router;

@@ -1,24 +1,22 @@
 var express = require('express');
-var ctrlMain = require('../controllers/main')
-var router = express.Router();
-
 const bodyParser = require("body-parser");
+
+var ctrlLocs = require('../controllers/locs');
+var ctrlOthers = require('../controllers/others');
+
+var router = express.Router();
 const parser = bodyParser.urlencoded({extended: false});
 
-/* GET home page. */
-router.get('/', ctrlMain.index);
-
-router.get('/image', function(req, res) {
-    res.sendFile(__dirname + "/ambal.png");
-});
 
 
-router.get('/css', parser, function(req, res) {
-    res.sendFile(__dirname + "/style.css");
-});
+/* Страницы местоположений */
+router.get('/', ctrlLocs.homelist);
+router.get('/location', ctrlLocs.locInfo);
+router.get('/location/review/new', ctrlLocs.addReview);
 
-router.get('/gimme/html', parser, function(req, res) {
-    res.sendFile(__dirname + "/rezume.html");
-});
+/* Другие страницы */
+router.get('/about', ctrlLocs.about);
+
+
 
 module.exports = router;

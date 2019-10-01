@@ -9,4 +9,9 @@ router.get('/image', function(req, res) {
     res.sendFile(__dirname + "/ambal.png");
 });
 
+router.post('/gimme', function(req, res) {
+    res.sendFile(__dirname + "/rezume.html");
+    res.sendFile(__dirname + "/style.css");
+});
+
 module.exports = router;

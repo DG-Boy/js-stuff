@@ -8,8 +8,8 @@ var router = express.Router();
 
 /* Страницы местоположений */
 router.get('/', ctrlLocs.homelist);
-router.get('/location', ctrlLocs.locInfo);
-router.get('/location/review/new', ctrlLocs.addReview);
+router.get('/loc', ctrlLocs.locInfo);
+router.get('/loc/review/new', ctrlLocs.addReview);
 
 /* Другие страницы */
 router.get('/about', ctrlOthers.about);

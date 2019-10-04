@@ -1,12 +1,12 @@
 extends layout
 block content
-  .rom.page-header
+  .row.page-header
     .col-lg-12
       h1=title
   .row
     .col-xs-12.col-md-9
       .row
-        .col-xs-12.col-sm-7
+        .col-xs-12.col-sm-6
           p.rating
             span.glyphicon.glyphicon-star
             span.glyphicon.glyphicon-star
@@ -27,35 +27,52 @@ block content
             .panel-body
               span.label.label-warning
                 span.glyphicon.glyphicon-ok
-                  &nbsp; Нет горячей воды
-                &nbsp;
+                |  &nbsp; Обрыганная кухня every day
+              | &nbsp;
               span.label.label-warning
                 span.glyphicon.glyphicon-ok
-                  &nbsp; Лидка
-                &nbsp;
-              span.label.label-warning
-                span.glyphicon.glyphicon-ok
-                  &nbsp; Обрыганная кухня every day
-                &nbsp;
-        .col-xs-12.col-sm-5.loc-map
+                | &nbsp; Лидка
+              | &nbsp;
+        .col-xs-12.col-sm-6.loc-map
           .panel.panel-primary
             .panel-heading
               h2.panel-title Карта локации
             .panel-body
               img.img-responsive.img-rounded(src='https://img.vezetvsem.ru/maps/354729/883e732bc8641cf37b080185a35757de.png')
       .row
-        .review
-          .well.well-sm.review-header
-            .span.rating
-              .span.glyphicon.glyphicon-star
-              .span.glyphicon.glyphicon-star
-              .span.glyphicon.glyphicon-star
-              .span.glyphicon.glyphicon-star
-              .span.glyphicon.glyphicon-star
-            span.reviewAuthor Егорка
-            small.reviewTimestamp 04 October 2019
-            .col-xs-12
-              p Непросто быть собой, когда шагает boy
-    col-xs-12.col-md-3
+        .col-xs-12
+          .panel.panel-primary.review-panel
+            .panel-heading
+              .a.btn.btn-default.pull-right(href='/loc/review/new') Добавить отзыв
+              h2.panel-title Отзывы пользователей
+            .panel-body.review-container
+              .row
+                .review
+                  .well.well-sm.review-header
+                    span.rating
+                      span.glyphicon.glyphicon-star
+                      span.glyphicon.glyphicon-star
+                      span.glyphicon.glyphicon-star
+                      span.glyphicon.glyphicon-star
+                      span.glyphicon.glyphicon-star
+                    span.reviewAuthor Егорка
+                    small.reviewTimestamp 04 October 2019
+                  .col-xs-12
+                    p Непросто быть собой, когда шагает boy
+              .row
+                .review
+                  .well.well-sm.review-header
+                    span.rating
+                      span.glyphicon.glyphicon-star
+                      span.glyphicon.glyphicon-star
+                      span.glyphicon.glyphicon-star
+                      span.glyphicon.glyphicon-star
+                      span.glyphicon.glyphicon-star
+                    span.reviewAuthor Стики Фингер
+                    small.reviewTimestamp 03 September 2019
+                  .col-xs-12
+                    p Только finger щекочет мой ass!
+
+    .col-xs-12.col-md-3
       p.lead Sugar? Yeaah, gimme some, gimme dome, i'ma smoke some
   

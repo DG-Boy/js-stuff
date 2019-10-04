@@ -6,3 +6,15 @@ body {
 a {
   color: #00B7FF;
 }
+
+.review { padding-bottom: 2%; }
+.panel-body.review-container { padding-top: 0; }
+.review-header { margin-bottom: 10px; }
+.reviewAuthor { margin: 0 5px; }
+.reviewTimestamp { color: #ccc; }
+.glyphicon.glyphicon-star { color: darkred; }
+
+.a.btn.btn-default.pull-right { 
+  margin-top: -9px;
+  font-size: 12px; 
+}

@@ -3,11 +3,10 @@ block content
   .rom.page-header
     .col-lg-12
       h1=title
-  
   .row
     .col-xs-12.col-md-9
       .row
-        .col-xs-12.col-sm-6
+        .col-xs-12.col-sm-7
           p.rating
             span.glyphicon.glyphicon-star
             span.glyphicon.glyphicon-star
@@ -22,7 +21,41 @@ block content
               p Пн - Пт: 7:00 - 21:00
               p Сб: 8:00 - 19:00
               p Вс: закрыто
-            .panel.panel-primary
-              .panel-heading
-                h2.panel-title Особенности
-              
+          .panel.panel-primary
+            .panel-heading
+              h2.panel-title Особенности
+            .panel-body
+              span.label.label-warning
+                span.glyphicon.glyphicon-ok
+                  &nbsp; Нет горячей воды
+                &nbsp;
+              span.label.label-warning
+                span.glyphicon.glyphicon-ok
+                  &nbsp; Лидка
+                &nbsp;
+              span.label.label-warning
+                span.glyphicon.glyphicon-ok
+                  &nbsp; Обрыганная кухня every day
+                &nbsp;
+        .col-xs-12.col-sm-5.loc-map
+          .panel.panel-primary
+            .panel-heading
+              h2.panel-title Карта локации
+            .panel-body
+              img.img-responsive.img-rounded(src='https://img.vezetvsem.ru/maps/354729/883e732bc8641cf37b080185a35757de.png')
+      .row
+        .review
+          .well.well-sm.review-header
+            .span.rating
+              .span.glyphicon.glyphicon-star
+              .span.glyphicon.glyphicon-star
+              .span.glyphicon.glyphicon-star
+              .span.glyphicon.glyphicon-star
+              .span.glyphicon.glyphicon-star
+            span.reviewAuthor Егорка
+            small.reviewTimestamp 04 October 2019
+            .col-xs-12
+              p Непросто быть собой, когда шагает boy
+    col-xs-12.col-md-3
+      p.lead Sugar? Yeaah, gimme some, gimme dome, i'ma smoke some
+  

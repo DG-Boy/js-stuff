@@ -1,76 +1,31 @@
 extends layout
+include _includes/shared-funs
 
 block content
-  .row.page-header
+  .banner.page-header
     .col-lg-12
-        h1=title
-          small &nbsp; Loc8r всегда покажет, что находится рядом ;)
+        h1= pageHeader.title
+          small &nbsp; #{pageHeader.strapline}
   .row
     .col-xs-12.col-sm-8
       row.list-group
-        .col-xs-12.list-group-item
-          h4
-            a(href="/loc") Общага
-            small &nbsp;
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-            span.badge.pull-right.badge-default 0м
-          p.address ул.Студентческая, д.6/б
-          p
-            span.label.label-warning Вечно нет горячей воды 
-            &nbsp
-            span.label.label-warning Лидка
-            &nbsp
-            span.label.label-warning Обрыганная кухня every day
-            &nbsp
-        &nbsp
 
-        .col-xs-12.list-group-item
-          h4
-            a(href="/loc") НРТК
-            small &nbsp;
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-            span.badge.pull-right.badge-default 10м
-          p.address ул.Студентческая, д.6
-          p
-            span.label.label-warning Дудос
-            &nbsp
-            span.label.label-warning Токарь
-            &nbsp
-            span.label.label-warning Дмитруха
-            &nbsp
-            span.label.label-warning Поц
-            &nbsp
-            span.label.label-warning Чёпа
-            &nbsp
-        &nbsp
+        each loc in locs
+          .col-xs-12.list-group-item
+            h4
+              a(href="/loc") #{loc.name}
+              
+              small &nbsp;
+                +printRating(loc.rating)
 
-        .col-xs-12.list-group-item
-          h4
-            a(href="/loc") Пятёрочка
-            small &nbsp;
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star-empty
-              span.glyphicon.glyphicon-star-empty
-            span.badge.pull-right.badge-default 100м
-          p.address ул.Пушкина, д.125
-          p
-            span.label.label-warning Нет напитков
-            &nbsp
-            span.label.label-warning Еда
-            &nbsp
-            span.label.label-warning Бесплатный Wi-Fi
-            &nbsp
-        &nbsp
+              span.badge.pull-right.badge-default #{loc.distance}
 
-    .col-xs-12.col-md-3
+            p.address #{loc.address}
+
+            p
+              each facility in loc.facilities
+                span.label.label-warning #{facility}
+                &nbsp
+
+    .col-xs-12.col-md-4
       p.lead Ехал Грека через реку

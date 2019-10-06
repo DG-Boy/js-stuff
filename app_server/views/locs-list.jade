@@ -1,4 +1,5 @@
 extends layout
+
 include _includes/shared-funs
 
 block content
@@ -25,7 +26,6 @@ block content
             p
               each facility in loc.facilities
                 span.label.label-warning #{facility}
-                &nbsp
-
+                | &nbsp
     .col-xs-12.col-md-4
-      p.lead Ехал Грека через реку
+      p.lead #{sidebar}

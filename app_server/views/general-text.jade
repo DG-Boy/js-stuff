@@ -5,9 +5,6 @@ block content
     .row
       .col-md-6.col-sm-12
         h1= title
-    .row
-      .col-md-6.col-sm-12
-        p
-          | Loc8r создан для помощи людям, ищущих помощь.
-          | <br /><br />
-          | Тра-ля-ля, тру-лю-люм
+  .row
+    .col-md-6.col-sm-12
+      p !{(content).replace(/\n/g, '<br/>')}

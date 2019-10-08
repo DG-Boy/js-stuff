@@ -1,78 +1,66 @@
 extends layout
+
+include _includes/shared-funs
+
 block content
-  .row.page-header
-    .col-lg-12
-      h1=title
+  .row.page-header: .col-lg-12
+    h1 #{pageHeader.title}
   .row
     .col-xs-12.col-md-9
       .row
-        .col-xs-12.col-sm-6
+        .col-xs-12.col-sm-5
           p.rating
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star-empty
-            span.glyphicon.glyphicon-star-empty
-          p ул.Студентческая, д.6/б
+            +printRating(loc.rating)
+          p #{loc.address}
+
           .panel.panel-primary
             .panel-heading
               h2.panel-title Часы работы
             .panel-body
-              p Пн - Пт: 7:00 - 21:00
-              p Сб: 8:00 - 19:00
-              p Вс: закрыто
+              each time in loc.openingTimes
+                p
+                  | #{time.days}: 
+                  if time.closed
+                    | закрыто
+                  else
+                    | #{time.opening} - #{time.closing}
+
           .panel.panel-primary
             .panel-heading
               h2.panel-title Особенности
             .panel-body
-              span.label.label-warning
-                span.glyphicon.glyphicon-ok
-                |  &nbsp; Обрыганная кухня every day
-              | &nbsp;
-              span.label.label-warning
-                span.glyphicon.glyphicon-ok
-                | &nbsp; Лидка
-              | &nbsp;
-        .col-xs-12.col-sm-6.loc-map
+              each facility in loc.facilities
+                span.label.label-warning 
+                  span.glyphicon.glyphicon-ok 
+                  | &nbsp; #{facility}
+                | &nbsp;
+
+        .col-xs-12.col-sm-7.loc-map
           .panel.panel-primary
             .panel-heading
               h2.panel-title Карта локации
             .panel-body
-              img.img-responsive.img-rounded(src='https://img.vezetvsem.ru/maps/354729/883e732bc8641cf37b080185a35757de.png')
+              img.img-responsive.img-rounded(src='https://static-maps.yandex.ru/1.x/??ll=#{loc.coords.lat},#{loc.coords.lng}&size=450,350&z=15&l=map&pt=#{loc.coords.lat},#{loc.coords.lng},pm2dom')
+      
       .row
         .col-xs-12
           .panel.panel-primary.review-panel
             .panel-heading
-              .a.btn.btn-default.pull-right(href='/loc/review/new') Добавить отзыв
+              .a.btn.btn-default.pull-right(href="/loc/review/new") Добавить отзыв
               h2.panel-title Отзывы пользователей
             .panel-body.review-container
-              .row
-                .review
-                  .well.well-sm.review-header
-                    span.rating
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                    span.reviewAuthor Егорка
-                    small.reviewTimestamp 04 October 2019
-                  .col-xs-12
-                    p Непросто быть собой, когда шагает boy
-              .row
-                .review
-                  .well.well-sm.review-header
-                    span.rating
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                    span.reviewAuthor Стики Фингер
-                    small.reviewTimestamp 03 September 2019
-                  .col-xs-12
-                    p Только finger щекочет мой ass!
 
+              each review in loc.reviews
+                .row
+                  .review
+                    .well.well-sm.review-header
+                      span.rating
+                        +printRating(review.rating)
+                      span.reviewAuthor #{review.author}
+                      small.reviewTimestamp #{review.timestamp}
+                    .col-xs-12
+                      p !{(review.reviewText).replace(/\n/g, '<br/>')}
+                      
     .col-xs-12.col-md-3
-      p.lead Sugar? Yeaah, gimme some, gimme dome, i'ma smoke some
-  
+      p.lead #{loc.name} #{sidebar.context}
+      p #{sidebar.callToAction}

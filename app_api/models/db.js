@@ -59,4 +59,4 @@ process.on('SIGTERM', function() {
     });
 });
 
-require(__dirname + '/locs_scema');
+require(__dirname + '/locs');

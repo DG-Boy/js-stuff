@@ -47,3 +47,15 @@ _v3=_ ![v3](./info/favicon-v3.ico)
 ![Пропало! Всё, пропало!!!](./info/query-delete.png)
 
 ## Learnway 7
+
+1. Установка модуля **request**:
+
+    ```shell
+        npm install --save request
+    ```
+
+2. В файле __app_server/controllers__:
+
+    ```javascript
+        var request = require('request');
+    ```

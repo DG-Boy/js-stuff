@@ -1,10 +1,14 @@
-# General Info
+# Loc8r
 
 ## Versions of favicon
 
 _v1=_ ![v1](./info/favicon-v1.ico) __->__
 _v2=_ ![v2](./info/favicon-v2.png) __->__
 _v3=_ ![v3](./info/favicon-v3.ico)
+
+## Архитектура приложения
+
+![Потрачено...](./info/app-arch.png)
 
 ## Нерешённые проблемы
 
@@ -41,3 +45,5 @@ _v3=_ ![v3](./info/favicon-v3.ico)
 ### DELETE
 
 ![Пропало! Всё, пропало!!!](./info/query-delete.png)
+
+## Learnway 7

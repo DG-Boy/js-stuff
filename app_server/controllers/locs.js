@@ -1,31 +1,49 @@
-/* Получаем (GET) домашнюю страницу */
-module.exports.homelist = function (req, res) {
+var request = require('request');
+
+var apiOptions = {
+  server: "http://localhost:3000"
+};
+if(process.env.NODE_ENV === 'production') {
+  apiOptions.server = 'https://loc8r-dgboy.herokuapp.com/'
+}
+
+var renderHomepage = function(req, res, resBody) {
+  console.log(resBody);
   res.render('locs-list', { 
     title: 'Loc8r - всегда покажет, что находится рядом ;)',
     pageHeader: {
       title: 'Loc8r',
       strapline: 'всегда покажет, что находится рядом ;)'
     },
-    sidebar: "Ехал Грека через реку",
-    locs: [{
-      name: 'Общага',
-      address: 'ул. Студенческая, д.6/б',
-      rating: '5',
-      facilities: ['Вечно нет горячей воды ', 'Лидка', 'Обрыганная кухня every day'],
-      distance: '0м'
-    }, {
-      name: 'НРТК',
-      address: 'ул. Студенческая, д.6',
-      rating: '4',
-      facilities: ['Дудос', 'Токарь', 'Чёпа', 'Вадик', 'Дмитра', 'Поц'],
-      distance: '10м'
-    }, {
-      name: 'Пятёрочка',
-      address: 'пр. Гагарина',
-      rating: '3',
-      facilities: ['Где сырки!', 'Красная цена'],
-      distance: '100м'
-    }]
+    sidebar: "Always here",
+    locs: resBody
+  });
+};
+
+
+
+/* Получаем (GET) домашнюю страницу */
+module.exports.homelist = function (req, res) {
+  var requestOptions, path;
+  path = '/api/locs';
+
+  //dorm    {lat: 43.987241, lng: 56.302498}
+  //nrtk    {lat: 43.988464, lng: 56.302585}
+  //5ka     {lat: 43.984070, lng: 56.303885}
+  
+  requestOptions = {
+    url: apiOptions.server + path,
+    method: "GET",
+    json: {},
+    qs: {
+      lng: 56.302498,
+      lat: 43.987241,
+      maxdist: 400
+    }
+  };
+  request(requestOptions, function(err, res2, body) {
+    //console.log(res2);
+    renderHomepage(req, res, body);
   });
 };
 
@@ -43,7 +61,7 @@ module.exports.locInfo = function (req, res) {
       address: 'ул.Студентческая, д.6/б',
       rating: 5,
       facilities: ['Вечно нет горячей воды ', 'Лидка', 'Обрыганная кухня every day'],
-      coords: {lat: 43.987239, lng: 56.302408},  
+      coords: {lat: 43.987241, lng: 56.302498},
       openingTimes: [{
         days: 'Пн - Пт',
         opening: '7:00',

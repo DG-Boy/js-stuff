@@ -25,64 +25,31 @@ var theEarth = (function() {
 module.exports.locsListByDistance = function (req, res) {
 	var lng = parseFloat(req.query.lng);
 	var lat = parseFloat(req.query.lat);
-	//var maxDistance = parseFloat(req.query.maxdist);
-	var point = {
-		type: "Point",
-		coordinates: [lng, lat]
-	};
-	
-	var geoOptions = {
-		spherical: true,
-		maxDistance: theEarth.getRadsFromDistance(req.query.maxdist),
-		num: 10
-	};
-	
-	if(!lng || !lat || !req.query.maxdist) {
+	var maxdist = parseFloat(req.query.maxdist);
+
+	if(!lng || !lat || !maxdist) {
 		sendJsonRes(res, 404, {
 			"message": "lng and lat query parameters are required"
 		});
 		return;
 	}
-
-	Loc.geoNear(point, geoOptions, function (err, results, stats) {
-		//console.log(results);
-		var locations = [];
-		if(err) {
-			sendJsonRes(res, 404, err);
-		} else {
-			results.forEach(function(doc) {
-				locations.push({
-					distance: theEarth.getRadsFromDistance(doc.dis),
-					name: doc.name,
-					address: doc.address,
-					rating: doc.rating,
-					facilities: doc.facilities,
-					_id: doc._id
-				});
-			});
-			sendJsonRes(res, 200, locs);
-		}
-	});
-/*
-	Loc.aggregate(
-		[{
+	
+	Loc.aggregate([{
 			$geoNear: {
 				near: { type: "Point", coordinates: [ lng, lat ] },
-				spherical: true,
-				distanceField: "dist.calculated",
-				includeLocs: "dist.location",
-				maxDistance: maxDistance
+				spherical: true, 
+				maxDistance: maxdist,
+				distanceField: "dist.calculated"
 			}
 		}], 
 		function(err, results) {
-			console.log(results)
 			if(err) {
 				sendJsonRes(res, 404, err);
 			} else {
 				var locs = [];
 				results.forEach(function(doc) {
 					locs.push({
-						distance: doc.dist,
+						distance: doc.dist.calculated,
 						name: doc.name,
 						address: doc.address,
 						rating: doc.rating,
@@ -93,7 +60,7 @@ module.exports.locsListByDistance = function (req, res) {
 				sendJsonRes(res, 200, locs);
 			}
 		}
-	);*/
+	);
 };
 module.exports.locsCreate = function (req, res) {
 	Loc.create({

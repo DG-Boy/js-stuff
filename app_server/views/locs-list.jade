@@ -15,7 +15,7 @@ block content
         each loc in locs
           .col-xs-12.list-group-item
             h4
-              a(href="/loc") #{loc.name}
+              a(href="/loc/#{loc._id}") #{loc.name}
               
               small &nbsp;
                 +printRating(loc.rating)

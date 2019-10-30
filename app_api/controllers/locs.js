@@ -6,28 +6,12 @@ var sendJsonRes = function(res, status, content) {
 	res.json(content);
 };
 
-var theEarth = (function() {
-	var earthRadius = 6371;
-	
-	var getDistanceFromRads = function(rads) {
-		return parseFloat(rads * earthRadius);
-	};
-	var getRadsFromDistance = function(distance) {
-		return parseFloat(distance / earthRadius);
-	};
-	
-	return {
-		getDistanceFromRads : getDistanceFromRads,
-		getRadsFromDistance : getRadsFromDistance
-	};
-})();
-
 module.exports.locsListByDistance = function (req, res) {
 	var lng = parseFloat(req.query.lng);
 	var lat = parseFloat(req.query.lat);
 	var maxdist = parseFloat(req.query.maxdist);
 
-	if(!lng || !lat || !maxdist) {
+	if((!lng && lng !== 0) || (!lat && !lat !== 0) || !maxdist) {
 		sendJsonRes(res, 404, {
 			"message": "lng and lat query parameters are required"
 		});
@@ -152,7 +136,6 @@ module.exports.locsUpdateOne = function (req, res) {
 						closing: req.body.closing2,
 						closed: req.body.closed2
 					}];
-
 				// 3. Сохранить документ
 				loc.save(function(err, loc) {
 					// 4. Отправить JSON-ответ
@@ -176,9 +159,6 @@ module.exports.locsDeleteOne = function (req, res) {
 					sendJsonRes(res, 404, err);
 					return;
 				}
-				
-				// Loc.remove(function(err, loc) {}); 
-
 				sendJsonRes(res, 204, null);
 		});
 	} else {

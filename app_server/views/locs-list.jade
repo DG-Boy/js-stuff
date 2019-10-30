@@ -9,7 +9,8 @@ block content
           small &nbsp; #{pageHeader.strapline}
   .row
     .col-xs-12.col-sm-8
-      row.list-group
+      .error #{message}
+      .row.list-group
 
         each loc in locs
           .col-xs-12.list-group-item

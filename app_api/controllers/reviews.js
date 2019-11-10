@@ -5,11 +5,9 @@ var sendJsonRes = function(res, status, content) {
 	res.status(status);
 	res.json(content);
 }
-var addReview = function(req, res, loc) {
+var doAddReview = function(req, res, loc) {
 	if(!loc) {
-		sendJsonRes(res, 404, {
-			"message" : "locID not found"
-		});
+		res.status(404).json({"message" : "locID not found"});
 	} else {
 		loc.reviews.push({
 			author: req.body.author,
@@ -18,12 +16,11 @@ var addReview = function(req, res, loc) {
 		});
 
 		loc.save(function(err, loc) {
-			var thisReview;
 			if(err) {
 				sendJsonRes(res, 400, err);
 			} else {
 				updateAverageRating(loc._id);
-				thisReview = loc.review[loc.review.length - 1];
+				var thisReview = loc.reviews[loc.reviews.length - 1];
 				sendJsonRes(res, 201, thisReview);
 			}
 		});
@@ -34,7 +31,7 @@ var updateAverageRating = function(locid) {
 	.findById(locid)
 	.select('rating reviews')
 	.exec(
-		function (err, locid) {
+		function (err, loc) {
 			if(!err) {
 				setAverageRating(loc);
 			}
@@ -43,24 +40,25 @@ var updateAverageRating = function(locid) {
 };
 var setAverageRating = function (loc) {
 	var reviewCount, ratingAverage, ratingTotal;
-	if(loc.review && loc.reviews.length > 0) {
-		reviewCount = loc.review.length;
+	if(loc.reviews && loc.reviews.length > 0) {
+		reviewCount = loc.reviews.length;
 		ratingTotal = 0;
 
 		for(var i = 0; i < reviewCount; i++) {
-			ratingTotal += loc.review[i].rating;
+			ratingTotal += loc.reviews[i].rating;
 		}
-		ratingAverage = parseInt(ratingTotal / reviewCount, 10);
+		ratingAverage = parseInt(Math.round(ratingTotal / reviewCount, 10));
 		loc.rating = ratingAverage;
 		loc.save(function(err) {
 			if(err) {
 				console.log(err);
 			} else {
-				console.log("Average rating updated to ", ratingAverage0);
+				console.log("Average rating updated to ", ratingAverage);
 			}
 		});
 	}
 };
+
 
 module.exports.reviewsCreate = function (req, res) {
 	var locid = req.params.locid;
@@ -72,7 +70,7 @@ module.exports.reviewsCreate = function (req, res) {
 			if(err) {
 				sendJsonRes(res, 400, err);
 			} else {
-				addReview(req, res, loc);
+				doAddReview(req, res, loc);
 			}
 		});
 	} else {
@@ -106,11 +104,11 @@ module.exports.reviewsReadOne = function (req, res) {
 					});
 				} else {
 					res2 = {
-						loc : {
-							name : loc.name,
-							id : req.params.locid
+						loc: {
+							name: loc.name,
+							id: req.params.locid
 						},
-						review : review
+						review: review
 					};
 					sendJsonRes(res, 200, res2);
 				}

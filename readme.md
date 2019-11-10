@@ -47,14 +47,26 @@
 
 ## Learnway #7
 
-1. Установка модуля **request**:
+1. Установка модуля **request**
 
     ```shell
         npm install --save request
     ```
 
-2. Подключение модуля в файле **app_server/controllers**:
+2. Подключение модуля в файле **app_server/controllers**
 
     ```js
         var request = require('request');
     ```
+
+- Переименовка поля даты отзыва
+
+    ```css
+        small.reviewTimestamp #{review.createdOn}
+    ```
+
+- Создание примеси formatDate() в shared-funs.jade
+
+- Вызов примеси formatDate() в loc-info.jade
+
+- Перехват ошибок в серверном locs.js для locInfo

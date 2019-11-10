@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-require('./app_api/models/db')
+require('./app_api/models/db');
 
 var routes = require('./app_server/routes/index');
 var routesApi = require('./app_api/routes/index');

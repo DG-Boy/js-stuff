@@ -7,7 +7,7 @@ if(process.env.NODE_ENV === 'production') {
 	apiOptions.server = 'https://loc8r-dgboy.herokuapp.com/'
 }
 
-
+/*
 var _formatDistance = function (distance) {
 	var numDistance, unit;
 	if(distance > 1000) {
@@ -19,25 +19,30 @@ var _formatDistance = function (distance) {
 	}
 
 	return numDistance + " " + unit;
-}
-var _showError= function (req, res, status) {
+};
+*/
+
+var _showError = function (req, res, status) {
   var title, content;
-  if(status == 404) {
-	title = "404. Страница не найдена!";
-	content = "Мы не можем найти эту страницу... :с";
+	
+	if(status == 404) {
+		title = "404. Страница не найдена!";
+		content = "Мы не можем найти эту страницу... :с";
   } else {
-	title = status + ". Неизвестная ошибка!";
-	content = "Мы не знаем шо происходит... :3";
-  }
+		title = status + ". Неизвестная ошибка!";
+		content = "Мы не знаем шо происходит... :3";
+	}
+	
   res.status(status);
   res.render('generic-text',  {
 	title: title,
 	content: content
   })
-}
+};
 
 
-var renderHomepage = function(req, res, data) {
+var renderHomepage = function(req, res /* , data */) {
+	/*
 	var message;
 	if(!(data instanceof Array)) {
 		message = "API lookup error";
@@ -47,6 +52,7 @@ var renderHomepage = function(req, res, data) {
 			message = "Рядом никаких интересных мест :(";
 		}
 	}
+	*/
 	res.render('locs-list', { 
 		title: 'Loc8r - всегда покажет, что находится рядом ;)',
 		pageHeader: {
@@ -54,8 +60,8 @@ var renderHomepage = function(req, res, data) {
 			strapline: 'всегда покажет, что находится рядом ;)'
 		},
 		sidebar: "Always here",
-		locs: data,
-		message: message
+		//locs: data,
+		//message: message
 	});
 };
 var renderLocInfo = function(req, res, data) {
@@ -104,6 +110,9 @@ var getLocInfo = function (req, res, callback) {
 
 /* Получаем (GET) домашнюю страницу */
 module.exports.homelist = function (req, res) {
+	renderHomepage(req, res);
+
+	/*
 	var requestOptions, path;
 	path = '/api/locs';
 
@@ -128,6 +137,7 @@ module.exports.homelist = function (req, res) {
 
 		renderHomepage(req, res, data);
 	});
+	*/
 };
 /* Получаем (GET) страницу с информацией о локации */
 module.exports.locInfo = function (req, res) {

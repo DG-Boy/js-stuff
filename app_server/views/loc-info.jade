@@ -3,65 +3,65 @@ extends layout
 include _includes/shared-funs
 
 block content
-  .row.page-header: .col-lg-12
-    h1 #{pageHeader.title}
-  .row
-    .col-xs-12.col-md-9
-      .row
-        .col-xs-12.col-sm-5
-          p.rating
-            +printRating(loc.rating)
-          p #{loc.address}
+	.row.page-header: .col-lg-12
+		h1 #{pageHeader.title}
+	.row
+		.col-xs-12.col-md-9
+			.row
+				.col-xs-12.col-sm-5
+					p.rating
+						+printRating(loc.rating)
+					p #{loc.address}
 
-          .panel.panel-primary
-            .panel-heading
-              h2.panel-title Часы работы
-            .panel-body
-              each time in loc.openingTimes
-                p
-                  | #{time.days}: 
-                  if time.closed
-                    | закрыто
-                  else
-                    | #{time.opening} - #{time.closing}
+					.panel.panel-primary
+						.panel-heading
+							h2.panel-title Часы работы
+						.panel-body
+							each time in loc.openingTimes
+								p
+									| #{time.days}: 
+									if time.closed
+										| закрыто
+									else
+										| #{time.opening} - #{time.closing}
 
-          .panel.panel-primary
-            .panel-heading
-              h2.panel-title Особенности
-            .panel-body
-              each facility in loc.facilities
-                span.label.label-warning 
-                  span.glyphicon.glyphicon-ok 
-                  | &nbsp; #{facility}
-                | &nbsp;
+					.panel.panel-primary
+						.panel-heading
+							h2.panel-title Особенности
+						.panel-body
+							each facility in loc.facilities
+								span.label.label-warning 
+									span.glyphicon.glyphicon-ok 
+									| &nbsp; #{facility}
+								| &nbsp;
 
-        .col-xs-12.col-sm-7.loc-map
-          .panel.panel-primary
-            .panel-heading
-              h2.panel-title Карта локации
-            .panel-body
-              img.img-responsive.img-rounded(src='https://static-maps.yandex.ru/1.x/??ll=#{loc.coords.lat},#{loc.coords.lng}&size=450,350&z=15&l=map&pt=#{loc.coords.lat},#{loc.coords.lng},pm2dom')
-      
-      .row
-        .col-xs-12
-          .panel.panel-primary.review-panel
-            .panel-heading
-              a.btn.btn-default.pull-right(href="/loc/#{loc._id}/reviews/new") Добавить отзыв
-              h2.panel-title Отзывы пользователей
-              | &nbsp; 
-            .panel-body.review-container
-              each review in loc.reviews
-                .row
-                  .review
-                    .well.well-sm.review-header
-                      span.rating
-                        +printRating(review.rating)
-                      span.reviewAuthor #{review.author}
-                      small.reviewTimestamp 
-                        +formatDate(review.createdOn)
-                    .col-xs-12
-                      p !{(review.reviewText).replace(/\n/g, '<br/>')}
-                      
-    .col-xs-12.col-md-3
-      p.lead #{loc.name} #{sidebar.context}
-      p #{sidebar.callToAction}
+				.col-xs-12.col-sm-7.loc-map
+					.panel.panel-primary
+						.panel-heading
+							h2.panel-title Карта локации
+						.panel-body
+							img.img-responsive.img-rounded(src='https://static-maps.yandex.ru/1.x/??ll=#{loc.coords.lat},#{loc.coords.lng}&size=450,350&z=15&l=map&pt=#{loc.coords.lat},#{loc.coords.lng},pm2dom')
+			
+			.row
+				.col-xs-12
+					.panel.panel-primary.review-panel
+						.panel-heading
+							a.btn.btn-default.pull-right(href="/loc/#{loc._id}/reviews/new") Добавить отзыв
+							h2.panel-title Отзывы пользователей
+							| &nbsp; 
+						.panel-body.review-container
+							each review in loc.reviews
+								.row
+									.review
+										.well.well-sm.review-header
+											span.rating
+												+printRating(review.rating)
+											span.reviewAuthor #{review.author}
+											small.reviewTimestamp 
+												+formatDate(review.createdOn)
+										.col-xs-12
+											p !{(review.reviewText).replace(/\n/g, '<br/>')}
+											
+		.col-xs-12.col-md-3
+			p.lead #{loc.name} #{sidebar.context}
+			p #{sidebar.callToAction}
